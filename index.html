@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Explora QPSK, 8PSK, 16QAM i 64QAM: símbols, amplitud, fase i mostres amb soroll identificades per colors.">
+<meta name="theme-color" content="#f5f3ed">
+<title>Constel·lació I/Q · Laboratori de radiocomunicacions</title>
+<style>
+:root{color-scheme:light;--paper:#f5f3ed;--ink:#182d35;--muted:#596b71;--line:#d8ded8;--teal:#087d76;--wash:#e2eeea;--copper:#a65332;--plot:#12272f;--plot-text:#dbe8e8;--plot-muted:#98b0b7;--grid:#29414a;--signal:#6fe0cc;--noise:#ffc291}
+*{box-sizing:border-box}[hidden]{display:none!important}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.5 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input,select{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--copper);outline-offset:4px}button{touch-action:manipulation}main{max-width:1080px;margin:auto;padding:28px 32px 24px}.masthead{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:18px}.eyebrow{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--teal)}.module{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:12px}.status-dot{height:7px;width:7px;background:var(--teal);border-radius:50%}header{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:22px}h1{font-size:clamp(28px,4vw,42px);line-height:1.08;font-weight:650;letter-spacing:-.04em;margin:0 0 10px}header p{margin:0;color:var(--muted);max-width:520px}.badge{padding:7px 12px;border:1px solid var(--line);border-radius:30px;white-space:nowrap;font-size:12px;font-weight:600}.workspace{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:24px}.chart-panel{align-self:start;min-width:0;background:var(--plot);border-radius:18px;overflow:hidden;position:relative}.chart-top{display:flex;justify-content:space-between;gap:15px;color:var(--plot-muted);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:20px 22px 0}.chart-top strong{color:var(--signal);font-weight:500}.chart-holder{width:100%}svg{width:100%;display:block}.legend{display:flex;flex-wrap:wrap;gap:18px;justify-content:center;padding:0 16px 20px;color:var(--plot-muted);font-size:12px}.legend span{display:flex;align-items:center;gap:7px}.legend i{width:7px;height:7px;border-radius:50%;background:var(--signal)}.legend .sample-dot{background:var(--noise);width:5px;height:5px}.legend .vector-line{height:2px;width:18px;border-radius:0}.side{display:flex;flex-direction:column;gap:20px;padding:2px 0}.section-label{display:flex;justify-content:space-between;align-items:center;font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;margin-bottom:10px}.section-label small{letter-spacing:0;text-transform:none;font-size:12px;color:var(--muted);font-weight:400}.symbol-buttons{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.symbol-buttons button{background:transparent;border:1px solid var(--line);border-radius:10px;padding:10px 0;color:var(--ink);font:600 19px/1.25 ui-monospace,SFMono-Regular,Consolas,monospace;transition:background .18s,color .18s,border-color .18s}.symbol-buttons button:hover{border-color:var(--teal)}.symbol-buttons button[aria-pressed="true"]{background:var(--teal);color:#fff;border-color:var(--teal)}.selection{padding:16px 18px;background:var(--wash);border-radius:12px}.selection-heading{font-size:12px;color:var(--muted);display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.selection-heading strong{color:var(--teal);font-family:ui-monospace,monospace;font-size:20px;letter-spacing:.04em}.coords{display:grid;grid-template-columns:1fr 1fr;gap:12px}.coords div{display:flex;align-items:baseline;gap:9px}.coords .axis-name{font-size:14px;color:var(--teal);font-weight:600}.coords strong{font-size:24px;font-weight:550;letter-spacing:-.03em;font-variant-numeric:tabular-nums}.measures{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:13px;padding-top:13px;border-top:1px solid #c3d9d1}.measures small{display:block;color:var(--muted);font-size:11px}.measures b{font-size:18px;font-weight:600;font-variant-numeric:tabular-nums}.unit-note{font-size:11px;color:var(--muted);margin:10px 0 0}.noise-row{display:flex;justify-content:space-between;gap:12px;align-items:center}.noise-row output{font-size:13px;color:var(--teal);font-weight:650;font-variant-numeric:tabular-nums}input[type=range]{accent-color:var(--teal);width:100%;margin:8px 0 0;cursor:pointer;min-height:28px}.range-ends{display:flex;justify-content:space-between;font-size:11px;color:var(--muted)}.toggle{display:flex;align-items:center;gap:9px;font-size:13px;margin-top:10px;cursor:pointer}.toggle input{accent-color:var(--teal);width:17px;height:17px;margin:0}.help{font-size:13px;color:var(--muted);margin:9px 0 0}.help b{color:var(--ink);font-weight:600}.insight{padding:15px 0 0;border-top:1px solid var(--line);font-size:13px;color:var(--muted);margin-top:auto}.insight strong{display:block;color:var(--ink);font-size:13px;margin-bottom:4px}.footer{display:flex;justify-content:space-between;gap:20px;margin-top:18px;padding-top:14px;border-top:1px solid var(--line);font-size:11px;color:var(--muted)}.footer span:last-child{text-align:right}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:760px){main{padding:22px 20px}.workspace{grid-template-columns:minmax(0,1fr);gap:20px}.side{display:grid;grid-template-columns:1fr 1fr;gap:20px}.insight{margin-top:0;grid-column:1/-1}.selection{grid-row:span 2}header{align-items:start}.badge{font-size:11px}.chart-top{padding-top:16px}}
+@media(max-width:480px){main{padding:18px 14px}.masthead{margin-bottom:14px}.module{font-size:10px}.eyebrow{font-size:10px;letter-spacing:.09em}header{display:block;margin-bottom:18px}.badge{display:inline-block;margin-top:13px}.side{grid-template-columns:1fr;gap:18px}.selection{grid-row:auto}.insight{grid-column:auto}.selection-heading{margin-bottom:8px}.selection{padding:14px 16px}.coords strong{font-size:22px}.footer{flex-direction:column;gap:5px}.footer span:last-child{text-align:left}.chart-top{padding:16px 16px 0;font-size:10px}.legend{gap:13px;padding-bottom:16px;font-size:11px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+select{width:100%;color:var(--ink);background:#fffdf8;border:1px solid var(--line);border-radius:10px;padding:10px 12px;min-height:44px;font-size:15px;cursor:pointer}
+.symbol-buttons button{font-size:16px;border-bottom:3px solid var(--symbol-color)}
+.symbol-buttons button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);border-bottom-color:var(--symbol-color)}
+.selected-symbol{display:flex;align-items:center;gap:8px}.selected-symbol i{display:block;width:9px;height:9px;border-radius:50%}
+.color-key{display:flex;align-items:start;justify-content:center;gap:9px;color:var(--plot-muted);font-size:11px;padding:0 20px 20px}.color-swatches{display:flex;gap:4px;padding-top:4px;flex:none}.color-swatches i{width:7px;height:7px;border-radius:50%;background:#70e0cc}.color-swatches i:nth-child(2){background:#ffc075}.color-swatches i:nth-child(3){background:#c2a0ff}.color-swatches i:nth-child(4){background:#ff91ae}.cross-key{font-size:17px;color:var(--plot-text);font-weight:400;line-height:1}
+.noise-results{background:var(--wash);border-radius:10px;padding:12px 14px;margin-top:16px;font-size:12px;color:var(--muted)}.noise-results div{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin:5px 0}.noise-results strong{font-size:20px;color:var(--ink);font-variant-numeric:tabular-nums}.noise-results b{color:var(--teal);font-variant-numeric:tabular-nums}.noise-results small{font-size:11px;display:block}
+.side{gap:17px}.legend{gap:14px;padding-bottom:12px}.selection{padding:13px 16px}.unit-note{margin-top:7px}.insight{margin-top:0}.selection-heading strong{font-size:18px}
+@media(min-width:761px){.workspace{grid-template-columns:minmax(0,1fr) 292px}}
+@media(max-width:760px) and (min-width:481px){.selection{grid-row:auto}.side>section:last-of-type{grid-column:1/-1}}
+</style>
+</head>
+<body>
+<main>
+  <div class="masthead"><span class="eyebrow">Laboratori de radiocomunicacions</span><span class="module"><i class="status-dot" aria-hidden="true"></i>Exploració interactiva</span></div>
+  <header><div><h1>Constel·lació I/Q</h1><p>Un mapa per veure com una ona transporta bits.</p></div><span class="badge" id="badge">QPSK · 2 bits per símbol</span></header>
+  <div class="workspace">
+    <section class="chart-panel" aria-label="Gràfic de la constel·lació">
+      <div class="chart-top"><span>Pla I/Q</span><strong id="plot-mode">Senyal ideal</strong></div>
+      <div class="chart-holder"><svg id="plot" role="img" aria-labelledby="plot-title plot-description"></svg></div>
+      <div class="legend"><span><i aria-hidden="true"></i>Punts ideals</span><span><i class="vector-line" aria-hidden="true"></i>Vector del símbol</span><span id="noise-legend" hidden><i class="sample-dot" aria-hidden="true"></i>Mostres rebudes</span><span id="error-legend" hidden><b class="cross-key" aria-hidden="true">×</b>Decisió incorrecta</span></div>
+      <div class="color-key"><span class="color-swatches" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>Veïns de colors diferents. Colors repetits en punts allunyats.</span></div>
+    </section>
+    <aside class="side" aria-label="Controls del laboratori">
+      <section><label class="section-label" for="modulation">01 · Tria la modulació</label><select id="modulation" aria-describedby="power-note"><option value="QPSK">QPSK</option><option value="8PSK">8PSK</option><option value="16QAM">16QAM</option><option value="64QAM">64QAM</option></select><p class="help" id="power-note">Mateixa potència mitjana: <b>1</b>.</p></section>
+      <section><div class="section-label">02 · Tria un símbol<small>O toca un punt</small></div><div class="symbol-buttons" id="symbol-buttons" role="group" aria-label="Símbol transmès"></div><div id="symbol-field" hidden><label class="sr-only" for="symbol-select">Símbol transmès</label><select id="symbol-select"></select></div><p class="help" id="symbol-count">4 símbols · 2 bits cadascun</p></section>
+      <section class="selection" aria-label="Valors del símbol seleccionat"><div class="selection-heading">Símbol seleccionat<span class="selected-symbol"><i id="selected-color" aria-hidden="true"></i><strong id="selected-bits">01</strong></span></div><div class="coords"><div><span class="axis-name">I</span><strong id="i-value">−1</strong></div><div><span class="axis-name">Q</span><strong id="q-value">+1</strong></div></div><div class="measures"><div><small>Amplitud</small><b id="amplitude">1,41</b></div><div><small>Fase</small><b id="phase">135°</b></div></div><p class="unit-note">I, Q i amplitud normalitzats.</p></section>
+      <section><div class="noise-row"><label class="section-label" for="noise" style="margin-bottom:0">03 · Afegeix soroll</label><output id="noise-value" for="noise">0%</output></div><input type="range" id="noise" min="0" max="100" step="1" value="0" aria-describedby="noise-help"><div class="range-ends"><span>Sense soroll</span><span>Soroll intens</span></div><p class="help" id="noise-help">Cada núvol manté el color del seu punt ideal d’origen.</p><label class="toggle"><input type="checkbox" id="projections" checked>Mostra les coordenades I i Q</label><label class="toggle"><input type="checkbox" id="decisions" checked>Mostra les zones de decisió</label><label class="toggle"><input type="checkbox" id="only-selected">Només mostres del símbol seleccionat</label><div class="noise-results" id="noise-results" hidden><span>Decisions incorrectes del símbol seleccionat</span><div><strong id="error-count">0 / 80</strong><b id="error-percent">0%</b></div><small>80 mostres simulades · Decisió pel punt ideal més proper.</small></div></section>
+      <div class="insight"><strong id="insight-title">Mateixa amplitud, fases diferents</strong><span id="insight-text">Els quatre punts són a la mateixa distància del centre. La fase és el que diferencia els símbols.</span></div>
+    </aside>
+  </div>
+  <div class="footer"><span>I: component en fase · Q: component en quadratura</span><span>Assignació Gray d’exemple · Soroll gaussià simulat</span></div>
+  <p id="announcement" class="sr-only" aria-live="polite"></p>
+</main>
+<script>
+const IQModel = (() => {
+  const palette = ['#70e0cc', '#ffc075', '#c2a0ff', '#ff91ae'];
+  const gray = (n, digits) => (n ^ (n >> 1)).toString(2).padStart(digits, '0');
+  function constellation(name) {
+    if (name === 'QPSK' || name === '8PSK') {
+      const count = name === 'QPSK' ? 4 : 8;
+      const bits = Math.log2(count);
+      return Array.from({length:count}, (_,k) => {
+        const angle = Math.PI/count + k*2*Math.PI/count;
+        return {bits:gray(k,bits), i:Math.cos(angle), q:Math.sin(angle), color:palette[k%4]};
+      });
+    }
+    const side = name === '16QAM' ? 4 : 8;
+    const axisBits = Math.log2(side);
+    const norm = Math.sqrt(2*(side*side-1)/3);
+    return Array.from({length:side*side}, (_,k) => {
+      const row = Math.floor(k/side), col = k%side;
+      return {bits:gray(col,axisBits)+gray(row,axisBits), i:(2*col-side+1)/norm,
+        q:(side-1-2*row)/norm, color:palette[(row%2)*2+(col%2)],row,col};
+    });
+  }
+  function closest(symbols,i,q) {
+    let best=0,distance=Infinity;
+    symbols.forEach((p,j)=>{const d=(p.i-i)**2+(p.q-q)**2;if(d<distance){best=j;distance=d;}});
+    return best;
+  }
+  function clouds(count) {
+    let seed=365;
+    const random=()=>{seed=(Math.imul(1664525,seed)+1013904223)>>>0;return (seed+.5)/4294967296;};
+    return Array.from({length:count},()=>Array.from({length:80},()=>{
+      const r=Math.sqrt(-2*Math.log(random())),angle=2*Math.PI*random();
+      return [r*Math.cos(angle),r*Math.sin(angle)];
+    }));
+  }
+  function received(symbols,cloud,noise) {
+    const sigma=noise*.0045;
+    return symbols.map((p,j)=>cloud[j].map(([a,b])=>{
+      const i=p.i+a*sigma,q=p.q+b*sigma;
+      const decision=closest(symbols,i,q);
+      return {i,q,decision,error:decision!==j};
+    }));
+  }
+  return {constellation,closest,clouds,received,palette};
+})();
+
+/* INTERFACE */
+(() => {
+  'use strict';
+  const svg=document.getElementById('plot');
+  const modulation=document.getElementById('modulation');
+  const noiseInput=document.getElementById('noise');
+  const projections=document.getElementById('projections');
+  const decisions=document.getElementById('decisions');
+  const onlySelected=document.getElementById('only-selected');
+  const symbolSelect=document.getElementById('symbol-select');
+  const buttonBox=document.getElementById('symbol-buttons');
+  const ns='http://www.w3.org/2000/svg';
+  let name='QPSK',symbols=IQModel.constellation(name),selected=1,noise=0;
+  let cloud=IQModel.clouds(symbols.length),samples=IQModel.received(symbols,cloud,noise);
+  let targets=[],framePending=false;
+  const value=n=>new Intl.NumberFormat('ca',{maximumFractionDigits:2}).format(Math.abs(n)<1e-10?0:n);
+  const sign=n=>Math.abs(n)<1e-10?'0':(n>0?'+':'−')+value(Math.abs(n));
+  const phase=p=>(Math.atan2(p.q,p.i)*180/Math.PI+360)%360;
+  function add(tag,attrs={},text,parent=svg){
+    const n=document.createElementNS(ns,tag);
+    Object.entries(attrs).forEach(([k,v])=>n.setAttribute(k,String(v)));
+    if(text!==undefined)n.textContent=text;
+    parent.appendChild(n);return n;
+  }
+  function label(x,y,text,attrs={}){return add('text',{x,y,fill:'var(--plot-muted)','font-family':'system-ui, sans-serif','font-size':12,...attrs},text);}
+  function buildPicker(){
+    buttonBox.replaceChildren();symbolSelect.replaceChildren();
+    symbols.forEach((p,j)=>{
+      const option=document.createElement('option');option.value=j;
+      option.textContent=`${p.bits} · I ${sign(p.i)}, Q ${sign(p.q)}`;symbolSelect.appendChild(option);
+      if(symbols.length<=8){
+        const b=document.createElement('button');b.type='button';b.dataset.symbol=j;b.textContent=p.bits;
+        b.style.setProperty('--symbol-color',p.color);
+        b.addEventListener('click',()=>{selected=j;update(true);});buttonBox.appendChild(b);
+      }
+    });
+    buttonBox.hidden=symbols.length>8;
+    document.getElementById('symbol-field').hidden=symbols.length<=8;
+  }
+  function render(){
+    const w=svg.parentElement.getBoundingClientRect().width;if(w<1)return;
+    const h=Math.min(530,w+44),pad=w<400?40:58;
+    svg.setAttribute('viewBox',`0 0 ${w} ${h}`);svg.style.height=h+'px';svg.replaceChildren();
+    const s=symbols[selected];
+    add('title',{id:'plot-title'},`Constel·lació ${name}: ${symbols.length} símbols`);
+    add('desc',{id:'plot-description'},`Símbol ${s.bits}, I ${value(s.i)}, Q ${value(s.q)}. Soroll ${noise} per cent. Cada núvol té el color del símbol d’origen. Les creus indiquen decisions incorrectes segons el punt ideal més proper.`);
+    const plotSize=Math.min(w-2*pad,h-92),cx=w/2,cy=(h-14)/2;
+    const extent=2.7,scale=plotSize/(extent*2),x=v=>cx+v*scale,y=v=>cy-v*scale;
+    const defs=add('defs'),marker=add('marker',{id:'arrowhead',viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},undefined,defs);
+    add('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:s.color},undefined,marker);
+    const clip=add('clipPath',{id:'plot-clip'},undefined,defs);
+    add('rect',{x:x(-extent),y:y(extent),width:plotSize,height:plotSize},undefined,clip);
+    const g=add('g',{'clip-path':'url(#plot-clip)'});
+    for(let v=-2.5;v<=2.5;v+=.5){
+      if(v===0)continue;
+      const attrs={stroke:'var(--grid)','stroke-width':.65,opacity:v%1===0?.7:.3};
+      add('line',{x1:x(v),y1:y(extent),x2:x(v),y2:y(-extent),...attrs},undefined,g);
+      add('line',{x1:x(-extent),y1:y(v),x2:x(extent),y2:y(v),...attrs},undefined,g);
+    }
+    if(decisions.checked){
+      if(name.includes('QAM')){
+        const side=Math.sqrt(symbols.length),step=symbols[1].i-symbols[0].i;
+        const lo=s.col===0?-extent:s.i-step/2,hi=s.col===side-1?extent:s.i+step/2;
+        const bottom=s.row===side-1?-extent:s.q-step/2,top=s.row===0?extent:s.q+step/2;
+        add('rect',{x:x(lo),y:y(top),width:(hi-lo)*scale,height:(top-bottom)*scale,fill:s.color,opacity:.075,'data-region':selected},undefined,g);
+        for(let k=0;k<side-1;k++){
+          const v=(symbols[k].i+symbols[k+1].i)/2;
+          add('line',{x1:x(v),y1:y(extent),x2:x(v),y2:y(-extent),stroke:'var(--plot-muted)',opacity:.4,'stroke-width':.8,'stroke-dasharray':'3 5','data-boundary':'I'},undefined,g);
+          add('line',{x1:x(-extent),y1:y(v),x2:x(extent),y2:y(v),stroke:'var(--plot-muted)',opacity:.4,'stroke-width':.8,'stroke-dasharray':'3 5','data-boundary':'Q'},undefined,g);
+        }
+      }else{
+        const half=Math.PI/symbols.length,a=Math.atan2(s.q,s.i),r=extent*scale*2;
+        const p1=[cx+r*Math.cos(a-half),cy-r*Math.sin(a-half)],p2=[cx+r*Math.cos(a+half),cy-r*Math.sin(a+half)];
+        add('path',{d:`M ${cx} ${cy} L ${p1[0]} ${p1[1]} L ${p2[0]} ${p2[1]} Z`,fill:s.color,opacity:.075,'data-region':selected},undefined,g);
+        for(let k=0;k<symbols.length;k++){
+          const angle=k*2*Math.PI/symbols.length;
+          add('line',{x1:cx,y1:cy,x2:cx+r*Math.cos(angle),y2:cy-r*Math.sin(angle),stroke:'var(--plot-muted)',opacity:.4,'stroke-width':.8,'stroke-dasharray':'3 5','data-boundary':'phase'},undefined,g);
+        }
+      }
+    }
+    if(!name.includes('QAM'))add('circle',{cx,cy,r:scale,fill:'none',stroke:'var(--grid)','stroke-width':1,'stroke-dasharray':'3 5'},undefined,g);
+    add('line',{x1:x(-extent),y1:cy,x2:x(extent),y2:cy,stroke:'var(--plot-muted)','stroke-width':1,opacity:.6},undefined,g);
+    add('line',{x1:cx,y1:y(extent),x2:cx,y2:y(-extent),stroke:'var(--plot-muted)','stroke-width':1,opacity:.6},undefined,g);
+    [-2,-1,1,2].forEach(v=>{
+      label(x(v),cy+17,sign(v),{'text-anchor':'middle','font-size':11});
+      label(cx-8,y(v)+4,sign(v),{'text-anchor':'end','font-size':11});
+    });
+    label(cx-8,cy+17,'0',{'text-anchor':'end','font-size':11});
+    label(w/2,h-12,'I · component en fase',{'text-anchor':'middle',fill:'var(--plot-text)'});
+    label(16,cy,'Q · component en quadratura',{transform:`rotate(-90 16 ${cy})`,'text-anchor':'middle',fill:'var(--plot-text)'});
+    if(noise>0)samples.forEach((list,j)=>{
+      if(onlySelected.checked&&j!==selected)return;
+      const sampleGroup=add('g',{'data-origin':symbols[j].bits,fill:symbols[j].color,stroke:symbols[j].color,opacity:j===selected?.9:.63},undefined,g);
+      let crosses='';
+      list.forEach(p=>{
+        const px=x(p.i),py=y(p.q);
+        if(p.error){const r=2.4;crosses+=`M${px-r},${py-r}l${2*r},${2*r}m${-2*r},0l${2*r},${-2*r}`;}
+        else add('circle',{cx:px,cy:py,r:1.65,stroke:'none'},undefined,sampleGroup);
+      });
+      if(crosses)add('path',{d:crosses,fill:'none','stroke-width':1.15,'data-errors':list.filter(p=>p.error).length},undefined,sampleGroup);
+    });
+    if(projections.checked)add('path',{d:`M ${x(s.i)} ${cy} L ${x(s.i)} ${y(s.q)} L ${cx} ${y(s.q)}`,fill:'none',stroke:s.color,'stroke-width':1,'stroke-dasharray':'5 5',opacity:.75,'data-projections':''},undefined,g);
+    const a=phase(s)*Math.PI/180,r=22;
+    add('path',{d:`M ${cx+r} ${cy} A ${r} ${r} 0 ${a>Math.PI?1:0} 0 ${cx+r*Math.cos(a)} ${cy-r*Math.sin(a)}`,fill:'none',stroke:'var(--noise)','stroke-width':1.5},undefined,g);
+    add('line',{x1:cx,y1:cy,x2:x(s.i),y2:y(s.q),stroke:s.color,'stroke-width':2.1,'marker-end':'url(#arrowhead)'},undefined,g);
+    add('circle',{cx,cy,r:2.8,fill:'var(--plot-text)'},undefined,g);
+    targets=[];
+    symbols.forEach((p,j)=>{
+      const active=j===selected,px=x(p.i),py=y(p.q);
+      if(active)add('circle',{cx:px,cy:py,r:12,fill:p.color,opacity:.16},undefined,g);
+      const node=add('circle',{cx:px,cy:py,r:active?5.2:symbols.length>16?3.3:4.2,fill:p.color,stroke:'var(--plot)','stroke-width':1.5,'data-ideal':j},undefined,g);
+      add('title',{},`Símbol ${p.bits}: I ${sign(p.i)}, Q ${sign(p.q)}`,node);
+      if(symbols.length<=8){
+        const angle=Math.atan2(p.q,p.i),lx=px+25*Math.cos(angle),ly=py-25*Math.sin(angle)+4;
+        add('rect',{x:lx-20,y:ly-14,width:40,height:21,rx:4,fill:'var(--plot)',opacity:.95});
+        label(lx,ly,p.bits,{'text-anchor':'middle',fill:p.color,'font-size':13,'font-family':'ui-monospace, monospace'});
+      }
+      targets.push({x:px,y:py,j});
+    });
+  }
+  function update(announce=false){
+    const s=symbols[selected],bits=Math.log2(symbols.length);
+    buttonBox.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.symbol)===selected)));
+    symbolSelect.value=selected;
+    document.getElementById('badge').textContent=`${name} · ${bits} bits per símbol`;
+    document.getElementById('symbol-count').textContent=`${symbols.length} símbols · ${bits} bits cadascun`;
+    document.getElementById('selected-bits').textContent=s.bits;
+    document.getElementById('selected-color').style.background=s.color;
+    document.getElementById('i-value').textContent=sign(s.i);
+    document.getElementById('q-value').textContent=sign(s.q);
+    document.getElementById('phase').textContent=value(phase(s))+'°';
+    document.getElementById('amplitude').textContent=value(Math.hypot(s.i,s.q));
+    document.getElementById('noise-value').textContent=noise+'%';
+    document.getElementById('plot-mode').textContent=noise===0?'Senyal ideal':'Mostres amb soroll';
+    document.getElementById('noise-legend').hidden=noise===0;
+    document.getElementById('error-legend').hidden=noise===0;
+    document.getElementById('noise-results').hidden=noise===0;
+    const errors=samples[selected].filter(p=>p.error).length;
+    document.getElementById('error-count').textContent=`${errors} / ${samples[selected].length}`;
+    document.getElementById('error-percent').textContent=value(100*errors/samples[selected].length)+'%';
+    document.getElementById('insight-title').textContent=noise>0?'Segueix el color, mira les creus':name.includes('QAM')?'Canvien l’amplitud i la fase':'Mateixa amplitud, fases diferents';
+    document.getElementById('insight-text').textContent=noise>0?'Una mostra conserva el color del símbol transmès. Si entra a la zona d’un altre punt ideal, es marca amb una creu.':name.includes('QAM')?'Hi ha punts a diferents distàncies del centre. Cada posició identifica una combinació de bits.':'Tots els punts són a la mateixa distància del centre. La fase diferencia els símbols.';
+    render();
+    if(announce)document.getElementById('announcement').textContent=`${name}. Símbol ${s.bits}. I ${sign(s.i)}. Q ${sign(s.q)}. Amplitud ${value(Math.hypot(s.i,s.q))}. Fase ${value(phase(s))} graus. Soroll ${noise} per cent. ${errors} de ${samples[selected].length} mostres amb decisió incorrecta.`;
+  }
+  modulation.addEventListener('change',()=>{
+    name=modulation.value;symbols=IQModel.constellation(name);selected=name==='QPSK'?1:0;
+    cloud=IQModel.clouds(symbols.length);samples=IQModel.received(symbols,cloud,noise);buildPicker();update(true);
+  });
+  symbolSelect.addEventListener('change',()=>{selected=Number(symbolSelect.value);update(true);});
+  noiseInput.addEventListener('input',()=>{
+    noise=Number(noiseInput.value);
+    if(!framePending){framePending=true;requestAnimationFrame(()=>{framePending=false;samples=IQModel.received(symbols,cloud,noise);update();});}
+  });
+  noiseInput.addEventListener('change',()=>{noise=Number(noiseInput.value);samples=IQModel.received(symbols,cloud,noise);update(true);});
+  [projections,decisions,onlySelected].forEach(input=>input.addEventListener('change',()=>update(true)));
+  svg.addEventListener('click',e=>{
+    const rect=svg.getBoundingClientRect(),px=e.clientX-rect.left,py=e.clientY-rect.top;
+    const nearest=targets.reduce((best,t)=>Math.hypot(t.x-px,t.y-py)<best.distance?{...t,distance:Math.hypot(t.x-px,t.y-py)}:best,{distance:Infinity});
+    if(nearest.distance<=24){selected=nearest.j;update(true);}
+  });
+  svg.style.cursor='crosshair';new ResizeObserver(render).observe(svg.parentElement);
+  buildPicker();update();
+})();
+
+</script>
+</body>
+</html>
